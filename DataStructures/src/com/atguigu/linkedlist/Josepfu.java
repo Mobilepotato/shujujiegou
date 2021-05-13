@@ -7,7 +7,7 @@ public class Josepfu {
 		CircleSingleLinkedList circleSingleLinkedList = new CircleSingleLinkedList();
 		circleSingleLinkedList.addBoy(125);// 加入5个小孩节点
 		circleSingleLinkedList.showBoy();
-		
+
 		//测试一把小孩出圈是否正确
 		circleSingleLinkedList.countBoy(10, 20, 125); // 2->4->1->5->3
 		//String str = "7*2*2-5+1-5+3-3";
@@ -65,7 +65,7 @@ class CircleSingleLinkedList {
 
 	// 根据用户的输入，计算出小孩出圈的顺序
 	/**
-	 * 
+	 *
 	 * @param startNo
 	 *            表示从第几个小孩开始数数
 	 * @param countNum
@@ -94,7 +94,7 @@ class CircleSingleLinkedList {
 			helper = helper.getNext();
 		}
 		//当小孩报数时，让first 和 helper 指针同时 的移动  m  - 1 次, 然后出圈
-		//这里是一个循环操作，知道圈中只有一个节点
+		//这里是一个循环操作，直到圈中只有一个节点
 		while(true) {
 			if(helper == first) { //说明圈中只有一个节点
 				break;
@@ -109,10 +109,10 @@ class CircleSingleLinkedList {
 			//这时将first指向的小孩节点出圈
 			first = first.getNext();
 			helper.setNext(first); //
-			
+
 		}
 		System.out.printf("最后留在圈中的小孩编号%d \n", first.getNo());
-		
+
 	}
 }
 
