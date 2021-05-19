@@ -1,6 +1,4 @@
-package com.atguigu.search;
-
-import java.util.Arrays;
+package com.atchaoqun.search;
 
 public class InsertValueSearch {
 
@@ -13,8 +11,8 @@ public class InsertValueSearch {
 
 		int arr[] = { 1, 8, 10, 89,1000,1000, 1234 };
 
-//		int index = insertValueSearch(arr, 0, arr.length - 1, 1000);
-		int index = binarySearch(arr, 0, arr.length-1, 1000);
+		int index = insertValueSearch(arr, 0, arr.length - 1, 1234);
+		//int index = binarySearch(arr, 0, arr.length, 1);
 		System.out.println("index = " + index);
 
 		//System.out.println(Arrays.toString(arr));
@@ -51,38 +49,25 @@ public class InsertValueSearch {
 	 * @return 如果找到，就返回对应的下标，如果没有找到，返回-1
 	 */
 	public static int insertValueSearch(int[] arr, int left, int right, int findVal) {
-		System.out.println("插值查找被调用~");
-		if (left > right || findVal > arr[arr.length - 1] || findVal < arr[0]) {
+
+		System.out.println("插值查找次数~~");
+
+		//注意：findVal < arr[0]  和  findVal > arr[arr.length - 1] 必须需要
+		//否则我们得到的 mid 可能越界
+		if (left > right || findVal < arr[0] || findVal > arr[arr.length - 1]) {
 			return -1;
 		}
 
-		//求出mid
-		//改变二分查找的系数1/2
-		//mid=(low+high)/2 = low+(higt-low)/2
-		//将1/2改为(key-arr[low])/(arr[high]-arr[low])
-		int mid = left + (right - left) * ((findVal - arr[left]) / (arr[right] - arr[left]));
+		// 求出mid, 自适应
+		int mid = left + (right - left) * (findVal - arr[left]) / (arr[right] - arr[left]);
 		int midVal = arr[mid];
-		if (findVal < midVal) {
-			return insertValueSearch(arr, left, mid - 1, findVal);
-		} else if (findVal > midVal) {
+		if (findVal > midVal) { // 说明应该向右边递归
 			return insertValueSearch(arr, mid + 1, right, findVal);
+		} else if (findVal < midVal) { // 说明向左递归查找
+			return insertValueSearch(arr, left, mid - 1, findVal);
 		} else {
-			return midVal;
+			return mid;
 		}
+
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
